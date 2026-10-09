@@ -82,16 +82,26 @@
 // }
 
 
+// =========== LIVE CODE STARTS HERE ===========
+// Everything ABOVE this line is an old commented-out version of the page; it can be deleted.
+//
+// PRODUCT DETAIL PAGE (URL: /#/products/<id>). Shows one product from src/data/data.js.
 import { useParams, useNavigate } from "react-router-dom";
 import {useEffect} from "react";
 import { products } from "../data/data";
 import { FaWhatsapp } from "react-icons/fa";
+// Page component.
 export default function ProductDetail() {
+  // id = the last part of the URL (e.g. '5'), matched against product ids in data.js.
   const { id } = useParams();
   const navigate = useNavigate();
 
+  // Finds the product with that id (ids in data.js are strings, so compare with a string).
   const product = products.find((p) => p.id === id);
 
+  // NOTE: the useEffect below runs AFTER this early return. React expects hooks (useEffect) to
+  // always run in the same order, so ideally move useEffect above this line. It works today
+  // because the product list never changes while the page is open.
   if (!product) return <p>Product not found</p>;
 
 
@@ -102,8 +112,12 @@ export default function ProductDetail() {
     });
   }, []);
 
+  // Page layout (JSX) starts here.
   return (
     <div className="px-8 py-6 mt-5 mb-5 max-w-4xl mx-auto bg-gray-200 rounded-lg shadow-lg">
+{/*
+  BREADCRUMB: Home / Products / <product name> - the first two are clickable.
+*/}
 <div className="flex items-center gap-2 text-gray-500 text-sm mb-4">
   <span
     onClick={() => navigate("/")}
@@ -129,6 +143,9 @@ export default function ProductDetail() {
 </div>
       <h1 className="text-3xl font-bold mt-6 mb-4">Product Details</h1>
 
+      {/*
+        MAIN PRODUCT IMAGE - comes from the product's 'image' in data.js (fixed height 500px).
+      */}
       <img
         src={product.image}
         alt={product.name}
@@ -137,6 +154,9 @@ export default function ProductDetail() {
 
       <h1 className="text-3xl font-bold mt-6 mb-4">{product.name}</h1>
 
+      {/*
+        PACK SIZE BUTTONS - one per item in pack_sizes in data.js (decorative, not clickable).
+      */}
       {/* pack sizes */}
       <div className="flex flex-wrap gap-4 mt-4 hover-bg-blue-500">
         {product.pack_sizes.map((size, index) => (
@@ -154,6 +174,10 @@ export default function ProductDetail() {
         ))}
       </div>
 
+      {/*
+        DESCRIPTION and the detail list below - each value is a field of the product in data.js.
+        To add another row, copy an <li> and use a new field name (and add it in data.js).
+      */}
       <p className="mt-4 text-gray-700 text-xl">
         <strong>Description: </strong>
       {product.description}
@@ -168,12 +192,18 @@ export default function ProductDetail() {
         <li><strong>Rating:</strong> ⭐ {product.rating}/5</li>
       </ul>
 
+      {/*
+        'CONTACT FOR QUOTE' button (desktop/in-page). Opens the Contact page.
+      */}
       <button
         onClick={() => navigate("/contact")}
         className="mt-6 mb-4 bg-[#0B1F3A] text-white px-6 py-5 rounded-lg"
       >
         Contact for Quote
       </button>
+      {/*
+        STICKY 'Contact for Quote' bar - phones only (md:hidden). Stays at the bottom of the screen.
+      */}
       <div className="fixed bottom-0 left-0 w-full bg-white shadow-lg p-4 md:hidden z-50">
   <button
     onClick={() => navigate("/contact")}
@@ -183,6 +213,12 @@ export default function ProductDetail() {
   </button>
   
 </div>
+  {/*
+    WHATSAPP INQUIRY button - opens WhatsApp with the product name pre-filled.
+    EDIT the number (91 + number) or the message text in href.
+    NOTE: spaces/special characters in a product name are not URL-encoded; wrap the name in
+    encodeURIComponent(...) if a name ever breaks the link.
+  */}
   <a
   href={`https://wa.me/919827003016?text=Hello, I want details about ${product.name}`}
   target="_blank"

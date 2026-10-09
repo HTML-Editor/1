@@ -1,3 +1,5 @@
+// ABOUT PAGE (URL: /#/about). Sections: banner image > company intro > Why Choose Us >
+// description cards > Channel Partner logos. Images are files in src/assets.
 import React from "react";
 import Aboutbg from "../assets/Aboutbg.png";
 import bg from "../assets/about_bg.jpg";
@@ -18,18 +20,24 @@ import prism from "../assets/prism.png";
 import award from "../assets/bg02.jpeg";
 
 import { useEffect } from "react";
+// Page component.
 export default function About() {
 
+   // Scrolls to the top when the page opens.
    useEffect(() => {
       window.scrollTo({
         top: 0,
         behavior: "smooth",
       });
     }, []);
+  // Page layout (JSX) starts here.
   return (
     <>
     <div className="px-4 py-6 text-center bg-gray-50 min-h-screen">
   <div className="max-w-8xl mx-auto">
+    {/*
+      Page heading 'About Us'.
+    */}
     <h1 className="mx-auto text-center text-4xl md:text-6xl font-extrabold text-[#1a4782] mt-2 mb-5 tracking-tight 
     hover:animate-zoomIn underline
   ">
@@ -56,6 +64,9 @@ export default function About() {
   ></div> */}
 
   {/* Image */}
+  {/*
+    BANNER IMAGE: change the import of 'bg' at the top of this file (src/assets/about_bg.jpg).
+  */}
   <img
     src={bg}
     alt="High-quality Lubricants"
@@ -76,6 +87,9 @@ export default function About() {
 </div>
       <div className=" mx-auto min-w-full items-center text-xl rounded shadow-lg">
         <div className=" flex flex-col items-center justify-center p-4 m-4">
+          {/*
+            EDIT HERE: company intro lines (name, agency title, districts).
+          */}
           <p className="font-extrabold text-4xl text-blue-900 tracking-tight underline ">
             Vikas Automobiles
           </p>
@@ -85,11 +99,18 @@ export default function About() {
           <p className="font-bold text-xl text-gray-800 ">
             HPCL LUBES C&F AGENT & DISTRIBUTOR
           </p>
+          {/*
+            NOTE: typo in class name - 'text-lgfont-medium' should be 'text-lg font-medium'
+            (so that line currently gets no size/weight styling).
+          */}
           <p className="text-lgfont-medium text-gray-700 ">
             (SATNA,REWA, SIDHI, SINGRAULI, PANNA, CHATTARPUR, TIKAMGARH)
           </p>
         </div>
       </div>
+{/*
+  WHY CHOOSE US: 4 cards. Copy a card <div> to add one (grid adjusts automatically).
+*/}
 <section className="bg-gray-50 p-6 md:p-10 rounded-xl">
         <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">
           Why Choose Us?
@@ -127,6 +148,10 @@ export default function About() {
         </div>
       </section>
 
+      {/*
+        2x2 grid: office photo, welcome text, description text, award photo.
+        EDIT the paragraphs to change the company story.
+      */}
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <div className="w-full max-w-6xl grid md:grid-cols-2 gap-6">
           {/* Google Map */}
@@ -174,6 +199,9 @@ export default function About() {
           </div>
         </div>
       </div>
+      {/*
+        OUR CHANNEL PARTNERS - company logos.
+      */}
       <div className="w-full bg-gray-50 rounded-xl shadow-lg py-10 px-4">
   <div className="max-w-7xl mx-auto text-center">
     
@@ -193,6 +221,10 @@ export default function About() {
     </p>
 
     {/* Logos */}
+    {/*
+      LOGO GRID: each <img> is one partner. Add: import the logo at the top, copy an <img> block.
+      Remove: delete its <img> block. Grid is 2 columns on phones up to 6 on large screens.
+    */}
     <div
       className="
         grid
@@ -272,6 +304,8 @@ export default function About() {
   );
 }
 
+// OLD / UNUSED CODE below (earlier template versions of this page).
+// Everything from here to the end of the file is commented out and can be deleted.
 // const links = [
 //   { name: 'Open roles', href: '#' },
 //   { name: 'Internship program', href: '#' },

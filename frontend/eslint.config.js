@@ -1,3 +1,6 @@
+// ESLINT CONFIG - code-quality checker (run with: npm run lint).
+// It does not affect the website build. Nothing to change here.
+
 import js from '@eslint/js'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'

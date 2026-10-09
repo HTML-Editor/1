@@ -1,5 +1,14 @@
 // src/data/data.js
 
+// PRODUCT DATA - every product on the Products page comes from this file.
+//
+// HOW TO ADD A PRODUCT
+//  1. Put the photo in src/assets/images/ (keep the file name simple, no spaces).
+//  2. Add an import line below, e.g.  import imgNEW from "../assets/images/new.jpg";
+//  3. Copy any product object in the products list, paste it at the end, give it a NEW unique
+//     id (string), and set image: imgNEW.
+// HOW TO EDIT/REMOVE: change the text in its object, or delete the whole { ... } block.
+// HOW TO HIDE: put // in front of every line of the object (like the ones already hidden).
 // IMPORT IMAGES
 
 import img20w40 from "../assets/images/a20w40.jpg";
@@ -44,10 +53,18 @@ import imgtrimfon23 from "../assets/images/trimfon_23.png";
 import imgTRIMOFIN20 from "../assets/images/TRIMOFIN_20.png";
 import imgX3 from "../assets/images/X3.png";
 
+// Each product has: id (unique, used in URL), name, category (builds the filter buttons),
+// description, pack_sizes (list), usage, application, lifetime, performance, features,
+// rating (0-5), image.
+// CATEGORY SPELLING MUST MATCH EXACTLY - each different spelling becomes its own filter button
+// (e.g. "Hyaduralic oils" vs "Hydraulic oils" are two separate buttons).
 export const products = [
+  // FIRST PRODUCT (id "0").
   {
     id: "0",
     name: "HP Milcy 20W 40",
+    // NOTE: this product has TWO category lines. JavaScript uses the LAST one, so it shows
+    // under "Heavy Duty Diesel Engine Oils". Delete the line you do not want.
     category: "Automotive Engine Oil",
     category: "Heavy Duty Diesel Engine Oils",
     description:
@@ -573,5 +590,6 @@ export const products = [
     "features": "Excellent water resistance, rust prevention, and ability to withstand high operating temperatures.",
     "rating": 4.8,
     "image": imgmp3  }
+// End of product list. Do not delete the closing bracket.
 ];
 // parthan ep  futurx hdx hytherm 600 rustop

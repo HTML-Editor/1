@@ -1,4 +1,8 @@
+// ACHIEVEMENTS PAGE (URL: /#/achievements): gallery of award photos.
+// TO ADD A PHOTO: put the image in src/assets, add an import line like the ones below,
+// then copy one <img ... /> line in the grid and use your new variable name.
 import React from 'react'
+// One import per photo. Lines starting with // are photos that are currently hidden.
 import award1 from "../assets/awards1.jpeg";
 import award2 from "../assets/awards2.jpeg";
 import award3 from "../assets/awards3.jpeg";
@@ -18,7 +22,9 @@ import bgo3 from "../assets/bgo3.jpeg";
 import news from "../assets/new.jpg";
 import { useEffect } from 'react';
 
+// Page component.
 export default function Achievements() {
+   // Scrolls to the top when the page opens.
    useEffect(() => {
       window.scrollTo({
         top: 0,
@@ -26,10 +32,14 @@ export default function Achievements() {
       });
     }, []);
 
+// Page layout (JSX) starts here.
 return (
 <>
  <div className=" mx-auto min-w-full items-center text-xl bg-gray-50 rounded shadow-lg">
         <div className=" flex flex-col items-center justify-center p-4 m-4">
+      {/*
+        EDIT HERE: page heading and the intro paragraph below it.
+      */}
       <p
   className="
     text-4xl
@@ -45,11 +55,18 @@ return (
             We are proud of our accomplishments and milestones that reflect our commitment to excellence and customer satisfaction.
           </p>
         </div>
+        {/*
+          PHOTO GRID: 1 column on phones, 4 on desktop (md:grid-cols-4).
+        */}
         <div className=" overflow-hidden rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-4 gap-4 p-4">
           {/* <img src={award1} alt="Award 1" className="m-2 " />
           <img src={award3} alt="Award 3" className="m-2" />
           <img src={award2} alt="Award 2" className="m-2" /> */}
          
+          {/*
+            EACH <img> = ONE PHOTO. alt = description for screen readers.
+            REORDER by moving lines; REMOVE by deleting a line; HIDE by turning the line into a JSX comment (put it between the comment markers).
+          */}
           <img src={award5} alt="Award 5" className="m-2 col-span-1" />
           <img src={award6} alt="Award 6" className="m-2 col-span-1" />
           <img src={award7} alt="Award 7" className="m-2 col-span-1" />

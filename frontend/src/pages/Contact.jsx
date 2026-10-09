@@ -1,12 +1,17 @@
-﻿import { useState } from "react";
+// CONTACT PAGE (URL: /#/contact): map, enquiry form, contact details cards.
+// The form sends an email through formsubmit.co - no backend needed.
+import { useState } from "react";
 import call from "../assets/call.png";
 import twitter from "../assets/twitter.png";
 import instagram from "../assets/instagram.webp";
 import mail from "../assets/mail.png";
 import whatsapp from "../assets/whatsapp.png";
+// axios = library used to send the form data over the internet.
 import axios from "axios";
 import {useEffect} from "react";
+// Page component.
 export default function Contact() {
+ // Scrolls to the top when the page opens.
  useEffect(() => {
 
     window.scrollTo({
@@ -15,6 +20,9 @@ export default function Contact() {
     });
   }, []);
 
+ // FORM STATE: holds what the visitor has typed. Each key must match the 'name' of a form
+ // field below (name, email, phone, product, quantity, address, message).
+ // To add a field: add a key here, in the reset inside handleSubmit, and an <input name="..."> below.
  const [form, setForm] = useState({
   name: "",
   email: "",
@@ -24,6 +32,8 @@ export default function Contact() {
   address: "",
   message: "",
 });
+// CHOICES for the 'Select Product' dropdown (just text, separate from data.js).
+// Add/remove lines to change the dropdown.
 const products = [
   "ENKLO 32",
   "ENKLO 46",
@@ -58,17 +68,25 @@ const products = [
   "Other"
 ];
 
+  // WHERE ENQUIRIES ARE SENT. Falls back to the address after || if no
+  // VITE_CONTACT_EMAIL is set. CHANGE this email to the owner's. First submission triggers an
+  // activation email from formsubmit.co - the owner must click it once or messages are not delivered.
   const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || "sanskritikhandelwal029@gmail.com";
+  // Form service URL. Leave as is unless you switch to another form service (VITE_FORMSPREE_URL).
   const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_URL || `https://formsubmit.co/ajax/${contactEmail}`;
 
+  // Runs on every keystroke: copies the typed value into form state under the field's name.
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // Runs when 'Send Message' is clicked: posts the form, shows an alert, clears the form.
+  // Edit the alert texts here.
   const handleSubmit = async (e) => {
   e.preventDefault();
 
   try {
+    // Sends all form values as JSON. _captcha:'false' turns off formsubmit's captcha page.
     const response = await axios.post(FORMSPREE_ENDPOINT, {
       ...form,
       _captcha: "false",
@@ -92,11 +110,13 @@ const products = [
       message: "",
     });
 
+  // If sending fails, the visitor sees this message (it mentions the email address).
   } catch (error) {
     console.error(error);
     alert(`Failed to send message. Please try again or email ${contactEmail} directly.`);
   }
 };
+  // Page layout (JSX) starts here.
   return (
     <>
    
@@ -118,8 +138,14 @@ const products = [
         <div className="bg-white rounded-2xl shadow-lg p-6">
           <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
 
+          {/*
+            THE FORM. required = visitor must fill that field. type="email" validates the address.
+          */}
           <form onSubmit={handleSubmit} className="space-y-4">
              {/* <label htmlFor="Name" className="text-lg w-full font-bold mt-6">Your Name:</label> */}
+            {/*
+              TEXT FIELDS (name / email / phone). Change placeholder="..." for the grey hint text.
+            */}
             <input
               type="text"
               name="name"
@@ -148,6 +174,9 @@ const products = [
               onChange={handleChange}
               className="w-full border rounded-lg p-2"
             />
+{/*
+  PRODUCT DROPDOWN - options come from the 'products' list near the top of this file.
+*/}
 <select
   name="product"
   value={form.product}
@@ -163,6 +192,9 @@ const products = [
   ))}
 </select>
 
+{/*
+  QUANTITY DROPDOWN - numbers 1 to 50. Change 50 in Array(50) for a different maximum.
+*/}
 <select
   name="quantity"
   value={form.quantity}
@@ -363,6 +395,9 @@ const products = [
             <option value="50">50</option>
           </select> */}
           {/* <label htmlFor="Address" className="text-lg w-full font-bold mt-6">Delivery Address:</label> */}
+          {/*
+            MULTI-LINE FIELDS (address and message). rows={5} = box height.
+          */}
           <textarea
               name="address"
               placeholder="Delivery Address"
@@ -382,6 +417,9 @@ const products = [
               required
               className="w-full border rounded-lg p-2"
             ></textarea>
+            {/*
+              SUBMIT BUTTON - label text is 'Send Message'.
+            */}
             <button
               type="submit"
               className="w-full bg-black text-white py-2 rounded-lg hover:opacity-90"
@@ -390,6 +428,10 @@ const products = [
             </button>
           </form>
         </div>
+        {/*
+          CONTACT INFORMATION cards. Edit phone/email/social handles below.
+          Phone number appears in: Footer.jsx, Home.jsx, ProductDetail.jsx, Contact.jsx - change all.
+        */}
         <div className="md:col-span-2 bg-white rounded-2xl shadow-lg p-6">
           <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
           <p className="text-gray-600">
@@ -403,6 +445,9 @@ const products = [
               <p className="mb-2">Address: Vikas Automobiles, Infront of Bajaj Finance Gahara Nala, Near Yadav Dharmkanta, Rewa Road, Satna, Madhya Pradesh 485001</p>
               <div className="flex items-center gap-3">
                 <img src={call} alt="Call Us" className="h-6 w-6" />
+                {/*
+                  NOTE: tel:+9827003016 is missing the India code - should be tel:+919827003016 (as in Footer.jsx).
+                */}
                 <a href="tel:+9827003016" target="_blank" rel="noopener noreferrer">
                   <p className="text-blue-500 hover:text-blue-700 ">Phone: 9827003016</p>
                 </a>
@@ -440,6 +485,9 @@ const products = [
               <h3 className="text-xl font-bold mb-4">Connect with us on Whatsapp</h3>
               <div className="flex items-center gap-3">
                 <img src={whatsapp} alt="whatsapp" className="h-6 w-6" />
+{/*
+  NOTE: wa.me links need the country code. Should be https://wa.me/919827003016 (as in Footer.jsx).
+*/}
 <a href="https://wa.me/9827003016" target="_blank" rel="noopener noreferrer">
                   <p className="text-green-500 hover:text-green-700 ">9827003016</p>
                 </a>
@@ -455,6 +503,9 @@ const products = [
              <p> <a href="tel:+9827003016" className="text-blue-500 hover:text-blue-700">
                 Call us : 9827003016
               </a></p>
+            {/*
+              'View on Map' link - change the address after ?q= to change where it points.
+            */}
             <p className="items-center">  <a href="http://maps.google.com/?q=Vikas Automobiles, Near Yadav Dharmkanta, Rewa Road, Satna, Madhya Pradesh 485001" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700 text-center py-2 ">View on Map</a></p>
             </div>
 

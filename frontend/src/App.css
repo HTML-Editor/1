@@ -1,3 +1,10 @@
+/*
+   NOTE: leftover from the Vite starter template. None of these classes
+   (.counter, .hero, #center, #next-steps, #docs, #spacer, .ticks) are used by the site.
+   The site is styled with Tailwind classes inside the .jsx files, so this file can be deleted
+   (also delete the 'import "./App.css"' line in App.jsx).
+ */
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;

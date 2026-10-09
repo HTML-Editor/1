@@ -1,20 +1,30 @@
+// PRODUCTS PAGE (URL: /#/products): banner, search box, category filter, product grid.
+// Products come from src/data/data.js - edit that file to change what is listed.
 import React, { useState, useRef } from "react";
+// BANNER IMAGE at the top of the page (src/assets/Lubricants_products.jpg).
 import Lubricants from "../assets/Lubricants_products.jpg";
 import { products } from "../data/data";
 import { useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { useEffect } from "react";
 export default function Products() {
+  // navigate('/path') opens a product's detail page on click.
   const navigate = useNavigate();
 
+  // Reference to the products area, used to scroll down to it when a category is chosen.
   const productsSectionRef = useRef(null);
 
+  // State = what the page 'remembers': the text typed in search, and the chosen category.
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
+  // FILTER BUTTONS are built automatically from each product's 'category' in data.js
+  // (no need to edit anything here when adding categories).
   // Categories
   const categories = ["All", ...new Set(products.map((p) => p.category))];
 
+  // A product is shown only if its name contains the search text AND its category matches.
+  // To search descriptions as well, also test product.description in matchesSearch.
   // Filter Products
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name
@@ -41,6 +51,7 @@ export default function Products() {
     }
   };
 
+   // Scrolls to the top when the page opens.
    useEffect(() => {
       window.scrollTo({
         top: 0,
@@ -52,6 +63,9 @@ export default function Products() {
     <>
       {/* Hero Section */}
       <div className="px-4 py-12 text-center bg-gray-100">
+        {/*
+          EDIT HERE: page heading text.
+        */}
         <h1 className="mx-auto text-center text-4xl md:text-6xl font-extrabold text-[#1a4782] mt-2 mb-5 tracking-tight 
     hover:animate-zoomIn underline">
           Wide Range of Products Available
@@ -70,6 +84,9 @@ export default function Products() {
         {/* Search Bar */}
         <div className="max-w-7xl mx-auto mb-8">
           <div className="relative">
+            {/*
+              SEARCH BOX - typing updates searchTerm which re-filters the grid instantly.
+            */}
             <input
               type="text"
               placeholder="Search products..."
@@ -88,6 +105,9 @@ export default function Products() {
           {/* Mobile Categories */}
           <div className="lg:hidden overflow-x-auto scrollbar-hide">
             <div className="flex gap-3 pb-2">
+              {/*
+                CATEGORY BUTTONS for phones (scrolls sideways). Dark blue = selected.
+              */}
               {categories.map((category) => (
                 <button
                   key={category}
@@ -112,6 +132,9 @@ export default function Products() {
             </h2>
 
             <div className="flex flex-col gap-3">
+              {/*
+                CATEGORY BUTTONS for desktop (left sidebar). Same list as the phone version.
+              */}
               {categories.map((category) => (
                 <button
                   key={category}
@@ -144,8 +167,15 @@ export default function Products() {
             </div>
 
             {/* Products Grid */}
+            {/*
+              GRID: 2 columns on phones, 3 on tablets, 4 on large screens. Edit the numbers to change.
+            */}
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
 
+              {/*
+                PRODUCT CARDS - one per product that passes the filters. Shows image + name + button.
+                To show more info on the card (e.g. rating) add it inside the 'Content' div using product.xxx.
+              */}
               {filteredProducts.map((product) => (
                 <div
                   key={product.id}
@@ -185,6 +215,9 @@ export default function Products() {
             </div>
 
             {/* No Products */}
+            {/*
+              Message shown when nothing matches the search/category.
+            */}
             {filteredProducts.length === 0 && (
               <div className="text-center py-20">
                 <h2 className="text-2xl font-bold text-gray-500">

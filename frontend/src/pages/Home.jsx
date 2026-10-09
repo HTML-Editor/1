@@ -1,3 +1,6 @@
+// HOME PAGE (URL: /#/). Sections from top to bottom:
+// Hero > Why Choose Us > Our Products > Customers > Location > Achievements.
+// Each image below is a file in src/assets - replace the file (same name) or change the import.
 import home from "../assets/homepage.png";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -18,20 +21,26 @@ import award1 from "../assets/awards1.jpeg";
 import award4 from "../assets/awards4.jpeg";
 import award9 from "../assets/awards9.jpeg";
 import award from "../assets/bg02.jpeg";
+// The 3 featured product photos on the home page. Pick other files from src/assets/images.
 // Product Images
 import grease from "../assets/images/AP_3.png";
 import engineoil from "../assets/images/Gear_oil_EP_90.jpg";
 import hydraulic from "../assets/images/ENKLO_32.jpg";
 import { useEffect } from "react";
+// Page component. Everything it shows is returned by the JSX further down.
 export default function Home() {
+   // Scrolls to the top when the page opens (so you do not land half-way down).
    useEffect(() => {
       window.scrollTo({
         top: 0,
         behavior: "smooth",
       });
     }, []);
+  // navigate('/path') changes page when a button is clicked.
   const navigate = useNavigate();
 
+  // UNUSED right now: the Testimonials section in the JSX is commented out.
+  // Remove the comment markers around that section to show it again.
   const testimonials = [
     {
       name: "ACC Cement",
@@ -47,16 +56,23 @@ export default function Home() {
     },
   ];
 
+  // From here down is the page layout (JSX). Tailwind classes control colours/spacing.
   return (
     <div className="px-4 md:px-6 py-6 space-y-6 font-poppins">
       {/* HERO SECTION */}
       <section className="bg-[#0B1F3A] text-white p-6 md:p-10 rounded-xl">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
+            {/*
+              EDIT HERE: main hero headline.
+            */}
             <h1 className="text-3xl md:text-5xl font-bold leading-tight">
               High Performance Industrial And Automotive Lubricants for Every Industry
             </h1>
 
+            {/*
+              EDIT HERE: tagline. The yellow part is the 'years of experience' text (also in About.jsx).
+            */}
             <p className="mt-4 text-lg text-gray-200">
               Trusted by industries across India with {" "}
               <span className="text-[#FFD700] font-bold">
@@ -64,11 +80,18 @@ export default function Home() {
               </span>
             </p>
 
+            {/*
+              EDIT HERE: list of districts served.
+            */}
             <p className="mt-4 text-gray-300">
               (SATNA, REWA, MAIHAR, PANNA, CHATTARPUR, TIKAMGARH)
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-6">
+              {/*
+                HERO BUTTONS (animated with framer-motion). Label = text between the tags,
+                destination = navigate("..."). Yellow colour = bg-[#FFD700].
+              */}
               <motion.button
   whileHover={{ scale: 1.08 }}
   whileTap={{ scale: 0.95 }}
@@ -126,6 +149,9 @@ export default function Home() {
           Why Choose Us?
         </h2>
 
+        {/*
+          3 'Why choose us' cards. Edit the <h3> title and <p> text of each card.
+        */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="bg-white p-5  hover:scale-105
     hover:-translate-y-1
@@ -163,6 +189,10 @@ export default function Home() {
       <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center underline">
           Our Products
         </h2>
+        {/*
+          3 featured product cards (picture + title + text). These are typed by hand here,
+          they do NOT come from data.js. Change image={...}, alt, title and description per card.
+        */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 ease-in-out
     hover:scale-105
@@ -246,6 +276,10 @@ export default function Home() {
 
       {/* CUSTOMERS */}
       <section className="bg-gray-100 p-6 md:p-10 rounded-xl">
+        {/*
+          CUSTOMER LOGOS: each <img> below is one customer. To add one, import the logo at the top
+          of this file and copy an <img> line. To remove, delete its line.
+        */}
         <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center underline">
           Our Valuable Customers
         </h2>
@@ -296,6 +330,9 @@ export default function Home() {
           Our Location
         </h2>
 
+        {/*
+          EDIT HERE: address text shown in the Location section.
+        */}
         <p className="mt-2 text-lg md:text-xl font-bold">
           Vikas Automobiles, Infront of Bajaj Finance Gahara Nala,
 Near Yadav Dharmkanta, Rewa Road,
@@ -313,6 +350,10 @@ Satna, Madhya Pradesh - 485001
         </p>
 
         <div className="mt-6 overflow-hidden rounded-xl">
+          {/*
+            GOOGLE MAP. To change: open Google Maps > Share > Embed a map > copy the src="..." URL
+            and paste it into src below.
+          */}
           <iframe
             title="map"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3628.5168727408586!2d80.8620831144718!3d24.571352162836167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39847efa4bf0455f%3A0xf7df454e162ab1de!2sVikas%20Automobiles%2C%20Satna%20(HP%20LUBE%20DISTRIBUTOR)!5e0!3m2!1sen!2sin!4v1652856740678!5m2!1sen!2sin"
@@ -332,6 +373,9 @@ Satna, Madhya Pradesh - 485001
           Recognized for excellence and outstanding performance
         </p>
 
+        {/*
+          3 award photos preview (full gallery is on the Achievements page).
+        */}
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-6">
           <img src={award1} alt="Award 1" className="rounded-xl shadow-md w-full h-full sm:col-span-1" />
 

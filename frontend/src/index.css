@@ -1,10 +1,20 @@
+/*
+   GLOBAL STYLES.
+   Line below loads the Poppins font from Google Fonts. Change the font name/weights here.
+ */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 
+/*
+   These 3 lines pull in Tailwind CSS. Do not remove.
+ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 /* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap'); */
+/*
+   'shine' animation - currently not used by any component (safe to delete).
+ */
 @keyframes shine {
   0% {
     background-position: -200px;
@@ -16,6 +26,9 @@
 }
 /* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap'); */
 /* index.css */
+/*
+   Default font for the whole site.
+ */
 body {
   font-family: 'Poppins', sans-serif;
 }

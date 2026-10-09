@@ -1,3 +1,7 @@
+// NOTE: the GitHub Pages site does NOT use this backend (the contact form posts to
+// formsubmit.co from Contact.jsx). server.js is not in the repo, so this folder cannot run
+// as-is. GitHub Pages cannot host Node servers; use e.g. Render if you want it later.
+
 node server/server.js
 run this for backend  and also run the frontend using npm run dev 
 

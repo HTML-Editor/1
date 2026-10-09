@@ -1,3 +1,8 @@
+// NOTE: UNUSED COMPONENT. No page imports ProductCard - Products.jsx draws its own cards.
+// The commented blocks are older versions. If you start using it, note it expects every product to
+// have pack_sizes, usage, application, lifetime, features and rating (it crashes otherwise).
+// BUG TO FIX FIRST: the text "[cite: 5]" after 'View Details' would show on screen - delete it.
+
 // import { Link } from "react-router-dom";
 
 // export default function ProductCard({ product }) {

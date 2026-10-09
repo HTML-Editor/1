@@ -1,36 +1,50 @@
+# GITHUB ACTIONS WORKFLOW - builds the site and publishes it to GitHub Pages
+# automatically every time you push to 'main'. Watch progress in the Actions tab.
 name: Deploy to GitHub Pages
 
+# WHEN TO RUN: on every push to main, or manually via 'Run workflow' button.
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
+# Permissions GitHub Pages deployment needs. Do not remove.
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# If two deploys start together, cancel the older one.
 concurrency:
   group: pages
   cancel-in-progress: true
 
+# Two jobs: 'build' (make the site files) then 'deploy' (publish them).
 jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
       run:
+        # The React app lives in the frontend/ folder, so commands run there.
         working-directory: frontend
     steps:
+      # Step 1: download the repo code.
       - uses: actions/checkout@v4
+      # Step 2: install Node.js. Change node-version if you ever need another.
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      # Step 3: install dependencies. 'npm install' (not 'npm ci') because the
+      # lock file is out of sync with package.json.
       - run: npm install --no-audit --no-fund
+      # Step 4: build the site into frontend/dist.
       - run: npm run build
+      # Step 5: hand the built folder (frontend/dist) to the deploy job.
       - uses: actions/upload-pages-artifact@v3
         with:
           path: frontend/dist
 
+  # Publishes the uploaded files. Needs Settings > Pages > Source = 'GitHub Actions'.
   deploy:
     needs: build
     runs-on: ubuntu-latest
