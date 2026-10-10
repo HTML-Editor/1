@@ -5,9 +5,12 @@ import React, { useState, useRef } from "react";
 import Lubricants from "../assets/Lubricants_products.jpg";
 import { products } from "../data/data";
 import { useNavigate } from "react-router-dom";
+import { useLang } from "../i18n/LanguageContext";
 import { FaSearch } from "react-icons/fa";
 import { useEffect } from "react";
 export default function Products() {
+  // LANGUAGE: t("key") returns text in the chosen language (src/i18n/translations.js).
+  const { t, td } = useLang();
   // navigate('/path') opens a product's detail page on click.
   const navigate = useNavigate();
 
@@ -67,13 +70,11 @@ export default function Products() {
           EDIT HERE: page heading text.
         */}
         <h1 className="mx-auto text-center text-4xl md:text-6xl font-extrabold text-[#1a4782] mt-2 mb-5 tracking-tight 
-    hover:animate-zoomIn underline">
-          Wide Range of Products Available
-        </h1>
+    hover:animate-zoomIn underline">{t("products.title")}</h1>
 
         <img
           src={Lubricants}
-          alt="Lubricants"
+          alt={t("products.bannerAlt")}
           className="mx-auto rounded-2xl bg-gray-200 object-cover shadow-lg  w-full"
         />
       </div>
@@ -89,7 +90,7 @@ export default function Products() {
             */}
             <input
               type="text"
-              placeholder="Search products..."
+              placeholder={t("products.search")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full p-4 pl-12 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg bg-white"
@@ -110,7 +111,7 @@ export default function Products() {
               */}
               {categories.map((category) => (
                 <button
-                  key={category}
+                  key={td(category)}
                   onClick={() => handleCategoryClick(category)}
                   className={`whitespace-nowrap px-5 py-3 rounded-full font-medium transition-all duration-300
                   ${
@@ -119,7 +120,7 @@ export default function Products() {
                       : "bg-gray-200 text-gray-700"
                   }`}
                 >
-                  {category}
+                  {td(category)}
                 </button>
               ))}
             </div>
@@ -127,9 +128,7 @@ export default function Products() {
 
           {/* Desktop Sidebar */}
           <aside className="hidden lg:block lg:w-64 bg-white rounded-2xl shadow-md p-6 h-fit sticky top-24">
-            <h2 className="text-2xl font-bold text-[#0B1F3A] mb-6">
-              Categories
-            </h2>
+            <h2 className="text-2xl font-bold text-[#0B1F3A] mb-6">{t("products.categories")}</h2>
 
             <div className="flex flex-col gap-3">
               {/*
@@ -137,7 +136,7 @@ export default function Products() {
               */}
               {categories.map((category) => (
                 <button
-                  key={category}
+                  key={td(category)}
                   onClick={() => handleCategoryClick(category)}
                   className={`text-left px-4 py-3 rounded-xl transition-all duration-300 font-medium
                   ${
@@ -146,7 +145,7 @@ export default function Products() {
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                   }`}
                 >
-                  {category}
+                  {td(category)}
                 </button>
               ))}
             </div>
@@ -157,9 +156,7 @@ export default function Products() {
 
             {/* Heading */}
             <div className="flex justify-between items-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-                Products
-              </h2>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800">{t("nav.products")}</h2>
 
               {/* <p className="text-gray-500">
                 {filteredProducts.length} Products
@@ -205,9 +202,7 @@ export default function Products() {
                         navigate(`/products/${product.id}`)
                       }
                       className="w-full bg-[#0B1F3A] text-white py-2 md:py-3 rounded-xl font-bold hover:bg-[#1a4782] transition duration-300 text-sm md:text-base"
-                    >
-                      View Details
-                    </button>
+                    >{t("products.viewDetails")}</button>
                   </div>
                 </div>
               ))}
@@ -220,9 +215,7 @@ export default function Products() {
             */}
             {filteredProducts.length === 0 && (
               <div className="text-center py-20">
-                <h2 className="text-2xl font-bold text-gray-500">
-                  No products found
-                </h2>
+                <h2 className="text-2xl font-bold text-gray-500">{t("products.none")}</h2>
               </div>
             )}
 

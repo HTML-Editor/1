@@ -87,11 +87,14 @@
 //
 // PRODUCT DETAIL PAGE (URL: /#/products/<id>). Shows one product from src/data/data.js.
 import { useParams, useNavigate } from "react-router-dom";
+import { useLang } from "../i18n/LanguageContext";
 import {useEffect} from "react";
 import { products } from "../data/data";
 import { FaWhatsapp } from "react-icons/fa";
 // Page component.
 export default function ProductDetail() {
+  // LANGUAGE: t("key") returns text in the chosen language (src/i18n/translations.js).
+  const { t, td } = useLang();
   // id = the last part of the URL (e.g. '5'), matched against product ids in data.js.
   const { id } = useParams();
   const navigate = useNavigate();
@@ -102,7 +105,7 @@ export default function ProductDetail() {
   // NOTE: the useEffect below runs AFTER this early return. React expects hooks (useEffect) to
   // always run in the same order, so ideally move useEffect above this line. It works today
   // because the product list never changes while the page is open.
-  if (!product) return <p>Product not found</p>;
+  if (!product) return <p>{t("detail.notFound")}</p>;
 
 
   useEffect(() => {
@@ -122,18 +125,14 @@ export default function ProductDetail() {
   <span
     onClick={() => navigate("/")}
     className="cursor-pointer hover:text-blue-500"
-  >
-    Home
-  </span>
+  >{t("nav.home")}</span>
 
   <span>/</span>
 
   <span
     onClick={() => navigate("/products")}
     className="cursor-pointer hover:text-blue-500"
-  >
-    Products
-  </span>
+  >{t("nav.products")}</span>
 
   <span>/</span>
 
@@ -141,7 +140,7 @@ export default function ProductDetail() {
     {product.name}
   </span>
 </div>
-      <h1 className="text-3xl font-bold mt-6 mb-4">Product Details</h1>
+      <h1 className="text-3xl font-bold mt-6 mb-4">{t("detail.title")}</h1>
 
       {/*
         MAIN PRODUCT IMAGE - comes from the product's 'image' in data.js (fixed height 500px).
@@ -169,7 +168,7 @@ export default function ProductDetail() {
                    after:border-2 after:border-[#1a4782] after:opacity-0 
                    hover:after:opacity-100 hover:after:-inset-2 after:transition-all">
           
-            {size}
+            {td(size)}
           </button>
         ))}
       </div>
@@ -179,17 +178,17 @@ export default function ProductDetail() {
         To add another row, copy an <li> and use a new field name (and add it in data.js).
       */}
       <p className="mt-4 text-gray-700 text-xl">
-        <strong>Description: </strong>
-      {product.description}
+        <strong>{t("detail.description")}</strong>
+      {td(product.description)}
       </p>
 
       <ul className="mt-6 space-y-3 text-gray-600 text-lg">
-        <li><strong>Usage:</strong> {product.usage}</li>
-        <li><strong>Application:</strong> {product.application}</li>
-        <li><strong>Lifetime:</strong> {product.lifetime}</li>
-        <li><strong>Performance:</strong> {product.performance}</li>
-        <li><strong>Features:</strong> {product.features}</li>
-        <li><strong>Rating:</strong> ⭐ {product.rating}/5</li>
+        <li><strong>{t("detail.usage")}</strong> {td(product.usage)}</li>
+        <li><strong>{t("detail.application")}</strong> {td(product.application)}</li>
+        <li><strong>{t("detail.lifetime")}</strong> {td(product.lifetime)}</li>
+        <li><strong>{t("detail.performance")}</strong> {td(product.performance)}</li>
+        <li><strong>{t("detail.features")}</strong> {td(product.features)}</li>
+        <li><strong>{t("detail.rating")}</strong> ⭐ {product.rating}/5</li>
       </ul>
 
       {/*
@@ -198,9 +197,7 @@ export default function ProductDetail() {
       <button
         onClick={() => navigate("/contact")}
         className="mt-6 mb-4 bg-[#0B1F3A] text-white px-6 py-5 rounded-lg"
-      >
-        Contact for Quote
-      </button>
+      >{t("detail.quote")}</button>
       {/*
         STICKY 'Contact for Quote' bar - phones only (md:hidden). Stays at the bottom of the screen.
       */}
@@ -208,9 +205,7 @@ export default function ProductDetail() {
   <button
     onClick={() => navigate("/contact")}
     className="w-full bg-[#0B1F3A] text-white py-4 rounded-xl text-lg font-bold"
-  >
-    Contact for Quote
-  </button>
+  >{t("detail.quote")}</button>
   
 </div>
   {/*
@@ -220,14 +215,12 @@ export default function ProductDetail() {
     encodeURIComponent(...) if a name ever breaks the link.
   */}
   <a
-  href={`https://wa.me/919827003016?text=Hello, I want details about ${product.name}`}
+  href={`https://wa.me/919827003016?text=${encodeURIComponent(t("detail.waText", { name: product.name }))}`}
   target="_blank"
   rel="noopener noreferrer"
   className="flex items-center justify-center gap-2 mt-4 bg-green-500 hover:bg-green-600 text-white py-4 rounded-xl font-bold transition"
   >
-  <FaWhatsapp size={24} />
-  WhatsApp Inquiry
-  </a>
+  <FaWhatsapp size={24} />{t("detail.whatsapp")}</a>
 
     </div>
   );

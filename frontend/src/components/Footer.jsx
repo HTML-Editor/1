@@ -6,7 +6,10 @@ import { SlSocialInstagram } from "react-icons/sl";
 import { FaSquareWhatsapp } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
+import { useLang } from "../i18n/LanguageContext";
 export default function Footer() {
+  // LANGUAGE: t("key") returns text in the chosen language (src/i18n/translations.js).
+  const { t } = useLang();
   // Hover style for the Quick Links.
   const linkStyle = "hover:text-blue-800 transition-colors duration-300";
 
@@ -16,28 +19,28 @@ export default function Footer() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {/* Address */}
         <div className="space-y-4 text-center md:text-left">
-          <h1 className="text-2xl md:text-3xl font-bold">Address</h1>
+          <h1 className="text-2xl md:text-3xl font-bold">{t("footer.address")}</h1>
 
           {/*
             EDIT HERE: business name.
           */}
-          <p className="font-semibold text-lg">Vikas Automobiles</p>
+          <p className="font-semibold text-lg">{t("brand")}</p>
 
           {/*
             EDIT HERE: postal address (<br /> = new line). Address also appears in Home.jsx and Contact.jsx.
           */}
           <p className="leading-relaxed text-gray-300">
-            Infront of Bajaj Finance Gahara Nala, 
+            {t("footer.addr1")} 
             <br />
-            <span className="block md:inline">Near Yadav Dharmkanta, Rewa Road,</span>
+            <span className="block md:inline">{t("footer.addr2")}</span>
             <br />
-            Satna, Madhya Pradesh - 485001
+            {t("footer.addr3")}
           </p>
         </div>
 
         {/* Social Media */}
         <div className="text-center md:text-left">
-          <h1 className="text-2xl md:text-3xl font-bold mb-4">Social Media</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-4">{t("footer.social")}</h1>
 
           <ul className="space-y-4">
             {/*
@@ -59,7 +62,7 @@ export default function Footer() {
             */}
             <li className="flex items-center justify-center md:justify-start gap-3">
               <IoMail className="hover:text-red-400 text-2xl" />
-              <a href="mailto:hpclcfasatna@gmail.com">Email</a>
+              <a href="mailto:hpclcfasatna@gmail.com">{t("footer.email")}</a>
             </li>
 
             {/*
@@ -73,9 +76,7 @@ export default function Footer() {
                 className="hover:text-green-400 transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
-              >
-                WhatsApp
-              </a>
+              >{t("footer.whatsapp")}</a>
             </li>
 
             {/*
@@ -114,40 +115,30 @@ export default function Footer() {
 
         {/* Quick Links */}
         <div className="text-center md:text-left">
-          <h1 className="text-2xl md:text-3xl font-bold mb-4">Quick Links</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-4">{t("footer.quick")}</h1>
 
           {/*
             Quick links - to="..." must match routes in App.jsx.
           */}
           <ul className="space-y-3">
             <li>
-              <Link to="/" className={linkStyle}>
-                Home
-              </Link>
+              <Link to="/" className={linkStyle}>{t("nav.home")}</Link>
             </li>
 
             <li>
-              <Link to="/products" className={linkStyle}>
-                Products
-              </Link>
+              <Link to="/products" className={linkStyle}>{t("nav.products")}</Link>
             </li>
 
             <li>
-              <Link to="/about" className={linkStyle}>
-                About
-              </Link>
+              <Link to="/about" className={linkStyle}>{t("nav.about")}</Link>
             </li>
 
             <li>
-              <Link to="/contact" className={linkStyle}>
-                Contact
-              </Link>
+              <Link to="/contact" className={linkStyle}>{t("nav.contact")}</Link>
             </li>
 
             <li>
-              <Link to="/achievements" className={linkStyle}>
-                Achievements
-              </Link>
+              <Link to="/achievements" className={linkStyle}>{t("nav.achievements")}</Link>
             </li>
           </ul>
         </div>
@@ -158,10 +149,10 @@ export default function Footer() {
         EDIT HERE: copyright year and bottom phone number.
       */}
       <footer className="border-t border-gray-600 mt-10 pt-6 text-center text-sm md:text-base text-gray-300">
-        <p>&copy; 2026 Vikas Automobiles. All rights reserved.</p>
+        <p>{t("footer.rights")}</p>
 
         <p className="mt-2">
-          Contact Us:
+          {t("footer.contactUs")}
           <a href="tel:+919827003016" className="ml-2 hover:text-yellow-400">
             +91 9827003016
           </a>

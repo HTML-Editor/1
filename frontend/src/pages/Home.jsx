@@ -3,6 +3,7 @@
 // Each image below is a file in src/assets - replace the file (same name) or change the import.
 import home from "../assets/homepage.png";
 import { useNavigate } from "react-router-dom";
+import { useLang } from "../i18n/LanguageContext";
 import { motion } from "framer-motion";
 import logo1 from "../assets/logo_1.jpg";
 import acccement from "../assets/AccCement.jpg";
@@ -29,6 +30,8 @@ import hydraulic from "../assets/images/ENKLO_32.jpg";
 import { useEffect } from "react";
 // Page component. Everything it shows is returned by the JSX further down.
 export default function Home() {
+  // LANGUAGE: t("key") returns text in the chosen language (src/i18n/translations.js).
+  const { t } = useLang();
    // Scrolls to the top when the page opens (so you do not land half-way down).
    useEffect(() => {
       window.scrollTo({
@@ -67,24 +70,22 @@ export default function Home() {
               EDIT HERE: main hero headline.
             */}
             <h1 className="text-3xl md:text-5xl font-bold leading-tight">
-              High Performance Industrial And Automotive Lubricants for Every Industry
+              {t("home.heroTitle")}
             </h1>
 
             {/*
               EDIT HERE: tagline. The yellow part is the 'years of experience' text (also in About.jsx).
             */}
             <p className="mt-4 text-lg text-gray-200">
-              Trusted by industries across India with {" "}
-              <span className="text-[#FFD700] font-bold">
-                25 years of experience
-              </span>
+              {t("home.trusted")}{" "}
+              <span className="text-[#FFD700] font-bold">{t("home.exp")}</span>
             </p>
 
             {/*
               EDIT HERE: list of districts served.
             */}
             <p className="mt-4 text-gray-300">
-              (SATNA, REWA, MAIHAR, PANNA, CHATTARPUR, TIKAMGARH)
+              {t("home.districts")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-6">
@@ -107,9 +108,7 @@ export default function Home() {
     shadow-lg
   "
   onClick={() => navigate("/products")}
->
-  View All Products
-</motion.button>
+>{t("home.viewProducts")}</motion.button>
       
 
                 <motion.button
@@ -127,16 +126,14 @@ export default function Home() {
     shadow-lg
   "
                 onClick={() => navigate("/contact")}
-              >
-                Contact Us
-              </motion.button>
+              >{t("home.contactUs")}</motion.button>
             </div>
           </div>
 
           <div>
             <img
               src={logo1}
-              alt="Industrial Lubricants"
+              alt={t("home.heroAlt")}
               className="rounded-md w-full object-cover shadow-lg"
             />
           </div>
@@ -145,9 +142,7 @@ export default function Home() {
 
       {/* WHY CHOOSE US */}
       <section className="bg-gray-100 p-6 md:p-10 rounded-xl">
-        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">
-          Why Choose Us?
-        </h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">{t("home.why")}</h2>
 
         {/*
           3 'Why choose us' cards. Edit the <h3> title and <p> text of each card.
@@ -156,10 +151,9 @@ export default function Home() {
           <div className="bg-white p-5  hover:scale-105
     hover:-translate-y-1
     hover:shadow-xl rounded-xl shadow-md">
-            <h3 className="font-bold text-lg mb-2">Premium Quality</h3>
+            <h3 className="font-bold text-lg mb-2">{t("home.q1t")}</h3>
             <p>
-              Wide range of high-quality lubricants for industrial and
-              automotive applications.
+              {t("home.q1d")}
             </p>
           </div>
 
@@ -168,17 +162,16 @@ export default function Home() {
     hover:-translate-y-1
     hover:shadow-xl
     active:scale-95">
-            <h3 className="font-bold text-lg mb-2">25 Years Experience</h3>
+            <h3 className="font-bold text-lg mb-2">{t("home.q2t")}</h3>
             <p>
-              Serving industries with trusted lubrication solutions for over two
-              decades.
+              {t("home.q2d")}
             </p>
           </div>
 
           <div className="bg-white  hover:scale-105 hover:-translate-y-1 hover:shadow-xl p-5 rounded-xl shadow-md">
-            <h3 className="font-bold text-lg mb-2">Timely Delivery</h3>
+            <h3 className="font-bold text-lg mb-2">{t("home.q3t")}</h3>
             <p>
-              Fast and reliable supply chain with outstanding customer support.
+              {t("home.q3d")}
             </p>
           </div>
         </div>
@@ -186,9 +179,7 @@ export default function Home() {
 
       {/* PRODUCTS SECTION */}
       <section className="bg-gray-100 p-6 md:p-10 rounded-xl space-y-6">
-      <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center underline">
-          Our Products
-        </h2>
+      <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center underline">{t("home.ourProducts")}</h2>
         {/*
           3 featured product cards (picture + title + text). These are typed by hand here,
           they do NOT come from data.js. Change image={...}, alt, title and description per card.
@@ -201,14 +192,13 @@ export default function Home() {
     active:scale-95">
             <img
               src={engineoil}
-              alt="Engine Oil"
+              alt={t("home.p1alt")}
               className="h-56 w-full object-cover"
             />
             <div className="p-4">
-              <h3 className="font-bold text-xl">Industrial Engine Oil</h3>
+              <h3 className="font-bold text-xl">{t("home.p1t")}</h3>
               <p className="mt-2 text-gray-600">
-                High-performance oils for industrial machinery and heavy
-                equipment.
+                {t("home.p1d")}
               </p>
             </div>
             
@@ -221,14 +211,13 @@ export default function Home() {
     active:scale-95">
             <img
               src={hydraulic}
-              alt="Hydraulic Oil"
+              alt={t("home.p2alt")}
               className="h-56 w-full object-cover "
             />
             <div className="p-4">
-              <h3 className="font-bold text-xl">Hydraulic Oil</h3>
+              <h3 className="font-bold text-xl">{t("home.p2t")}</h3>
               <p className="mt-2 text-gray-600">
-                Smooth and efficient hydraulic system performance for all
-                industries.
+                {t("home.p2d")}
               </p>
             </div>
           </div>
@@ -240,14 +229,13 @@ export default function Home() {
     active:scale-95">
             <img
               src={grease}
-              alt="Industrial Grease"
+              alt={t("home.p3alt")}
               className="h-56 w-full object-cover"
             />
             <div className="p-4">
-              <h3 className="font-bold text-xl">Industrial Grease</h3>
+              <h3 className="font-bold text-xl">{t("home.p3t")}</h3>
               <p className="mt-2 text-gray-600">
-                Durable lubrication solutions for bearings and heavy-duty
-                machinery.
+                {t("home.p3d")}
               </p>
             </div>
             
@@ -269,9 +257,7 @@ export default function Home() {
     active:scale-95
   "
   onClick={() => navigate("/products")}
->
-  View All Products
-</button>
+>{t("home.viewProducts")}</button>
       </section>
 
       {/* CUSTOMERS */}
@@ -280,13 +266,9 @@ export default function Home() {
           CUSTOMER LOGOS: each <img> below is one customer. To add one, import the logo at the top
           of this file and copy an <img> line. To remove, delete its line.
         */}
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center underline">
-          Our Valuable Customers
-        </h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center underline">{t("home.customers")}</h2>
 
-        <p className="text-center text-lg mb-8">
-          Trusted by leading industries across India
-        </p>
+        <p className="text-center text-lg mb-8">{t("home.customersSub")}</p>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-center">
           <img src={acccement} alt="ACC Cement" className="mx-auto" />
@@ -326,21 +308,17 @@ export default function Home() {
 
       {/* LOCATION */}
       <section className="bg-gray-100 p-6 md:p-10 rounded-xl">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 underline">
-          Our Location
-        </h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 underline">{t("home.location")}</h2>
 
         {/*
           EDIT HERE: address text shown in the Location section.
         */}
         <p className="mt-2 text-lg md:text-xl font-bold">
-          Vikas Automobiles, Infront of Bajaj Finance Gahara Nala,
-Near Yadav Dharmkanta, Rewa Road,
-Satna, Madhya Pradesh - 485001
+          {t("home.addr1")} {t("home.addr2")} {t("home.addr3")}
         </p>
 
         <p className="mt-4 text-lg">
-          Contact:
+          {t("home.contact")}
           <a
             href="tel:+919827003016"
             className="text-blue-600 font-semibold ml-2"
@@ -355,7 +333,7 @@ Satna, Madhya Pradesh - 485001
             and paste it into src below.
           */}
           <iframe
-            title="map"
+            title={t("home.mapTitle")}
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3628.5168727408586!2d80.8620831144718!3d24.571352162836167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39847efa4bf0455f%3A0xf7df454e162ab1de!2sVikas%20Automobiles%2C%20Satna%20(HP%20LUBE%20DISTRIBUTOR)!5e0!3m2!1sen!2sin!4v1652856740678!5m2!1sen!2sin"
             className="w-full h-[300px] md:h-[450px] border-0"
             loading="lazy"
@@ -365,13 +343,9 @@ Satna, Madhya Pradesh - 485001
 
       {/* ACHIEVEMENTS */}
       <section className="bg-gray-100 p-6 md:p-10 rounded-xl">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 underline text-center">
-          Our Achievements
-        </h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 underline text-center">{t("home.achievements")}</h2>
 
-        <p className="text-center text-lg mb-8">
-          Recognized for excellence and outstanding performance
-        </p>
+        <p className="text-center text-lg mb-8">{t("home.achievementsSub")}</p>
 
         {/*
           3 award photos preview (full gallery is on the Achievements page).
@@ -388,9 +362,7 @@ Satna, Madhya Pradesh - 485001
           <button
             className="bg-[#FFD700] hover:bg-yellow-400 transition text-black px-6 py-3 rounded-lg font-semibold"
             onClick={() => navigate("/achievements")}
-          >
-            View All Achievements
-          </button>
+          >{t("home.viewAchievements")}</button>
         </div>
       </section>
     </div>

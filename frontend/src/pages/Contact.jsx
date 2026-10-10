@@ -8,9 +8,12 @@ import mail from "../assets/mail.png";
 import whatsapp from "../assets/whatsapp.png";
 // axios = library used to send the form data over the internet.
 import axios from "axios";
+import { useLang } from "../i18n/LanguageContext";
 import {useEffect} from "react";
 // Page component.
 export default function Contact() {
+  // LANGUAGE: t("key") returns text in the chosen language (src/i18n/translations.js).
+  const { t, td, lang } = useLang();
  // Scrolls to the top when the page opens.
  useEffect(() => {
 
@@ -97,7 +100,7 @@ const products = [
       },
     });
 
-    const successMessage = response.data?.message || "Message sent successfully";
+    const successMessage = (lang === "en" && response.data?.message) || t("contact.sent");
     alert(successMessage);
 
     setForm({
@@ -113,7 +116,7 @@ const products = [
   // If sending fails, the visitor sees this message (it mentions the email address).
   } catch (error) {
     console.error(error);
-    alert(`Failed to send message. Please try again or email ${contactEmail} directly.`);
+    alert(t("contact.failed", { email: contactEmail }));
   }
 };
   // Page layout (JSX) starts here.
@@ -125,9 +128,9 @@ const products = [
       <div className="w-full max-w-6xl grid md:grid-cols-2 gap-6">
         {/* Google Map */}
         <div className="w-full h-[400px] md:h-auto rounded-2xl overflow-hidden shadow-lg bg-white">
-          <h1 className="text-2xl font-bold mb-4 m-2">Our Location</h1>
+          <h1 className="text-2xl font-bold mb-4 m-2">{t("home.location")}</h1>
           <iframe
-            title="map"
+            title={t("contact.mapTitle")}
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3628.5168727408586!2d80.8620831144718!3d24.571352162836167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39847efa4bf0455f%3A0xf7df454e162ab1de!2sVikas%20Automobiles%2C%20Satna%20(HP%20LUBE%20DISTRIBUTOR)!5e0!3m2!1sen!2sin!4v1652856740678!5m2!1sen!2sin"
             className="w-full h-full border-0"
             loading="lazy"
@@ -136,7 +139,7 @@ const products = [
 
         {/* Contact Form */}
         <div className="bg-white rounded-2xl shadow-lg p-6">
-          <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
+          <h2 className="text-2xl font-semibold mb-4">{t("home.contactUs")}</h2>
 
           {/*
             THE FORM. required = visitor must fill that field. type="email" validates the address.
@@ -149,7 +152,7 @@ const products = [
             <input
               type="text"
               name="name"
-              placeholder="Your Name"
+              placeholder={t("contact.phName")}
               value={form.name}
               onChange={handleChange}
               required
@@ -159,7 +162,7 @@ const products = [
             <input
               type="email"
               name="email"
-              placeholder="Your Email"
+              placeholder={t("contact.phEmail")}
               value={form.email}
               onChange={handleChange}
               required
@@ -169,7 +172,7 @@ const products = [
             <input
               type="text"
               name="phone"
-              placeholder="Your Phone"
+              placeholder={t("contact.phPhone")}
               value={form.phone}
               onChange={handleChange}
               className="w-full border rounded-lg p-2"
@@ -183,11 +186,11 @@ const products = [
   onChange={handleChange}
   className="w-full border rounded-lg p-2"
 >
-  <option value="">Select Product</option>
+  <option value="">{t("contact.selectProduct")}</option>
 
   {products.map((product, index) => (
     <option key={index} value={product}>
-      {product}
+      {td(product)}
     </option>
   ))}
 </select>
@@ -201,7 +204,7 @@ const products = [
   onChange={handleChange}
   className="w-full border rounded-lg p-2"
 >
-  <option value="">Quantity</option>
+  <option value="">{t("contact.quantity")}</option>
 
   {[...Array(50)].map((_, index) => (
     <option key={index + 1} value={index + 1}>
@@ -212,7 +215,7 @@ const products = [
            
  {/* <label htmlFor="product" className="text-lg w-full font-bold mt-6">Select Product:</label> */}
               {/* <select name="product" id="product" className="w-full border rounded-lg p-2">
-               <option value="">Select Product</option>
+               <option value="">{t("contact.selectProduct")}</option>
             <option value="ENKLO 32">ENKLO 32</option>
             <option value="ENKLO 46">ENKLO 46</option>
             <option value="ENKLO 68">ENKLO 68</option>
@@ -400,7 +403,7 @@ const products = [
           */}
           <textarea
               name="address"
-              placeholder="Delivery Address"
+              placeholder={t("contact.phAddress")}
               rows={5}
               value={form.address}
               onChange={handleChange}
@@ -410,7 +413,7 @@ const products = [
            {/* <label htmlFor="Message" className="text-lg w-full font-bold mt-6">Your Message:</label> */}
            <textarea
               name="message"
-              placeholder="Your Message"
+              placeholder={t("contact.phMessage")}
               rows={5}
               value={form.message}
               onChange={handleChange}
@@ -423,9 +426,7 @@ const products = [
             <button
               type="submit"
               className="w-full bg-black text-white py-2 rounded-lg hover:opacity-90"
-            >
-              Send Message
-            </button>
+            >{t("contact.send")}</button>
           </form>
         </div>
         {/*
@@ -433,37 +434,37 @@ const products = [
           Phone number appears in: Footer.jsx, Home.jsx, ProductDetail.jsx, Contact.jsx - change all.
         */}
         <div className="md:col-span-2 bg-white rounded-2xl shadow-lg p-6">
-          <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
+          <h2 className="text-2xl font-semibold mb-4">{t("contact.info")}</h2>
           <p className="text-gray-600">
-            Get in touch with us for any inquiries, product information, or support. Our team is here to assist you with all your lubrication needs. Feel free to reach out via phone, email, or by filling out the contact form. We look forward to hearing from you and providing you with the best service possible.
+            {t("contact.intro")}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
             <div className="bg-gray-50 rounded-2xl shadow-sm p-6">
-              <h3 className="text-xl font-bold mb-4">Our Contact Information</h3>
-              <p className="mb-2">Email: hpclcfasatna@gmail.com</p>
-              <p className="mb-2">Address: Vikas Automobiles, Infront of Bajaj Finance Gahara Nala, Near Yadav Dharmkanta, Rewa Road, Satna, Madhya Pradesh 485001</p>
+              <h3 className="text-xl font-bold mb-4">{t("contact.ourInfo")}</h3>
+              <p className="mb-2">{t("contact.emailLabel")} hpclcfasatna@gmail.com</p>
+              <p className="mb-2">{t("contact.addressLabel")} {t("contact.addrFull")}</p>
               <div className="flex items-center gap-3">
                 <img src={call} alt="Call Us" className="h-6 w-6" />
                 {/*
                   NOTE: tel:+9827003016 is missing the India code - should be tel:+919827003016 (as in Footer.jsx).
                 */}
                 <a href="tel:+9827003016" target="_blank" rel="noopener noreferrer">
-                  <p className="text-blue-500 hover:text-blue-700 ">Phone: 9827003016</p>
+                  <p className="text-blue-500 hover:text-blue-700 ">{t("contact.phoneLabel")} 9827003016</p>
                 </a>
               </div>
             </div>
             <div className="bg-gray-50 rounded-2xl shadow-sm p-6">
-              <h3 className="text-xl font-bold mb-4">Our Email</h3>
+              <h3 className="text-xl font-bold mb-4">{t("contact.ourEmail")}</h3>
               <div className="flex items-center gap-3">
                 <img src={mail} alt="email us" className="h-6 w-6" />
                  <a href="mailto:hpclcfasatna@gmail.com" target="_blank" rel="noopener noreferrer">
-                <p className="text-blue-500 hover:text-blue-700 ">Email: hpclcfasatna@gmail.com</p>
+                <p className="text-blue-500 hover:text-blue-700 ">{t("contact.emailLabel")} hpclcfasatna@gmail.com</p>
               </a>
               </div>
             </div>
             <div className="bg-gray-50 rounded-2xl shadow-sm p-6">
-              <h3 className="text-xl font-bold mb-4">Connect with us on Instagram</h3>
+              <h3 className="text-xl font-bold mb-4">{t("contact.instagram")}</h3>
               <div className="flex items-center gap-3">
                 <img src={instagram} alt="Instagram" className="h-6 w-6" />
                 <a href="https://www.instagram.com/hpclcfasatna/" target="_blank" rel="noopener noreferrer">
@@ -472,7 +473,7 @@ const products = [
               </div>
             </div>
             <div className="bg-gray-50 rounded-2xl shadow-sm p-6">
-              <h3 className="text-xl font-bold mb-4">Connect with us on Twitter</h3>
+              <h3 className="text-xl font-bold mb-4">{t("contact.twitter")}</h3>
               <div className="flex items-center gap-3">
                 <img src={twitter} alt="Twitter" className="h-6 w-6" />
                 <a href="https://twitter.com/cfa_hp_satna" target="_blank" rel="noopener noreferrer">
@@ -482,7 +483,7 @@ const products = [
             </div>
             
             <div className="bg-gray-50 rounded-2xl shadow-sm p-6">
-              <h3 className="text-xl font-bold mb-4">Connect with us on Whatsapp</h3>
+              <h3 className="text-xl font-bold mb-4">{t("contact.whatsapp")}</h3>
               <div className="flex items-center gap-3">
                 <img src={whatsapp} alt="whatsapp" className="h-6 w-6" />
 {/*
@@ -498,15 +499,15 @@ const products = [
            
         </div>
         <div className="w-full h-50 bg-white rounded-2xl shadow-lg p-6 md:col-span-2">
-              <p className="text-center py-2 font-bold text-lg">Our Address</p>
-              <p className="text-center py-2">Vikas Automobiles, Near Yadav Dharmkanta, Rewa Road, Satna, Madhya Pradesh 485001</p>
+              <p className="text-center py-2 font-bold text-lg">{t("contact.ourAddress")}</p>
+              <p className="text-center py-2">{t("contact.addrShort")}</p>
              <p> <a href="tel:+9827003016" className="text-blue-500 hover:text-blue-700">
-                Call us : 9827003016
+                {t("contact.callUs")} 9827003016
               </a></p>
             {/*
               'View on Map' link - change the address after ?q= to change where it points.
             */}
-            <p className="items-center">  <a href="http://maps.google.com/?q=Vikas Automobiles, Near Yadav Dharmkanta, Rewa Road, Satna, Madhya Pradesh 485001" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700 text-center py-2 ">View on Map</a></p>
+            <p className="items-center">  <a href="http://maps.google.com/?q=Vikas Automobiles, Near Yadav Dharmkanta, Rewa Road, Satna, Madhya Pradesh 485001" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700 text-center py-2 ">{t("contact.viewMap")}</a></p>
             </div>
 
       </div>

@@ -2,7 +2,7 @@
    GLOBAL STYLES.
    Line below loads the Poppins font from Google Fonts. Change the font name/weights here.
  */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
 
 
 /*
@@ -30,5 +30,6 @@
    Default font for the whole site.
  */
 body {
-  font-family: 'Poppins', sans-serif;
+  /* Poppins for English letters; Noto Sans Devanagari is used automatically for Hindi text. */
+  font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
 }

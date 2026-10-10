@@ -3,10 +3,15 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 // LOGO: replace src/assets/logo_1.jpg with a new image of the same name to change it.
 import logo from "../assets/logo_1.jpg";
+import { useLang } from "../i18n/LanguageContext";
 
 export default function Navbar() {
   // isOpen = is the mobile (phone) menu expanded? The hamburger button toggles it.
   const [isOpen, setIsOpen] = useState(false);
+  // LANGUAGE: t("key") returns text in the chosen language (see src/i18n/translations.js).
+  const { t, lang, setLang } = useLang();
+  // Switch between English and Hindi (choice is remembered by the browser).
+  const toggleLang = () => setLang(lang === "en" ? "hi" : "en");
 
   // Shared look for every menu link (padding, hover colour, grow on hover).
   // Change here to restyle all links at once, desktop and mobile.
@@ -34,12 +39,8 @@ export default function Navbar() {
             {/*
               EDIT HERE: company name shown in the bar on desktop/laptop screens.
             */}
-            <h1 className="text-2xl xl:text-3xl font-bold tracking-wide text-center whitespace-nowrap">
-              Vikas Automobiles
-            </h1>
-            {/* <h1 className="text-2xl xl:text-3xl font-bold tracking-wide text-center whitespace-nowrap transition-all duration-300 hover:text-blue-200">
-  Vikas Automobiles
-</h1> */}
+            <h1 className="text-2xl xl:text-3xl font-bold tracking-wide text-center whitespace-nowrap">{t("brand")}</h1>
+            {/* <h1 className="text-2xl xl:text-3xl font-bold tracking-wide text-center whitespace-nowrap transition-all duration-300 hover:text-blue-200">{t("brand")}</h1> */}
           </div>
 
           {/* Desktop Links */}
@@ -48,32 +49,41 @@ export default function Navbar() {
               DESKTOP MENU LINKS. to="..." must match a path in App.jsx.
               To add a menu item, copy a <Link> block here AND in the mobile menu below.
             */}
-            <Link to="/" className={linkStyle}>
-              Home
-            </Link>
+            <Link to="/" className={linkStyle}>{t("nav.home")}</Link>
 
-            <Link to="/products" className={linkStyle}>
-              Products
-            </Link>
+            <Link to="/products" className={linkStyle}>{t("nav.products")}</Link>
 
-            <Link to="/about" className={linkStyle}>
-              About
-            </Link>
+            <Link to="/about" className={linkStyle}>{t("nav.about")}</Link>
 
-            <Link to="/contact" className={linkStyle}>
-              Contact
-            </Link>
+            <Link to="/contact" className={linkStyle}>{t("nav.contact")}</Link>
 
-            <Link to="/achievements" className={linkStyle}>
-              Achievements
-            </Link>
+            <Link to="/achievements" className={linkStyle}>{t("nav.achievements")}</Link>
+            {/*
+              LANGUAGE BUTTON (desktop): shows the OTHER language's name. Text comes from
+              "lang.switchTo" in src/i18n/translations.js.
+            */}
+            <button
+              onClick={toggleLang}
+              aria-label={t("lang.aria")}
+              className="ml-2 px-3 py-1 rounded-full border border-white/70 text-base font-semibold hover:bg-white hover:text-[#0B1F3A] transition-colors"
+            >
+              {t("lang.switchTo")}
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden ml-auto">
+          <div className="md:hidden ml-auto flex items-center gap-3">
             {/*
               Hamburger button (phones/tablets): click toggles the menu; icon switches between X and bars.
             */}
+            {/* LANGUAGE BUTTON (phones): same switch as on desktop. */}
+            <button
+              onClick={toggleLang}
+              aria-label={t("lang.aria")}
+              className="px-3 py-1 rounded-full border border-white/70 text-sm font-semibold"
+            >
+              {t("lang.switchTo")}
+            </button>
             <button onClick={() => setIsOpen(!isOpen)}>
               <svg
                 className="w-8 h-8"
@@ -106,9 +116,7 @@ export default function Navbar() {
           {/*
             EDIT HERE: company name shown on phones (change together with the desktop one above).
           */}
-          <h1 className="text-2xl font-bold tracking-wide">
-            Vikas Automobiles
-          </h1>
+          <h1 className="text-2xl font-bold tracking-wide">{t("brand")}</h1>
         </div>
 
         {/* Mobile Menu */}
@@ -125,41 +133,31 @@ export default function Navbar() {
             MOBILE MENU LINKS - same pages as desktop. onClick closes the menu after tapping a link.
           */}
           <div className="flex flex-col gap-3 text-center text-lg font-semibold bg-blue-700 rounded-xl p-4">
-            <Link to="/" className={linkStyle} onClick={() => setIsOpen(false)}>
-              Home
-            </Link>
+            <Link to="/" className={linkStyle} onClick={() => setIsOpen(false)}>{t("nav.home")}</Link>
 
             <Link
               to="/products"
               className={linkStyle}
               onClick={() => setIsOpen(false)}
-            >
-              Products
-            </Link>
+            >{t("nav.products")}</Link>
 
             <Link
               to="/about"
               className={linkStyle}
               onClick={() => setIsOpen(false)}
-            >
-              About
-            </Link>
+            >{t("nav.about")}</Link>
 
             <Link
               to="/contact"
               className={linkStyle}
               onClick={() => setIsOpen(false)}
-            >
-              Contact
-            </Link>
+            >{t("nav.contact")}</Link>
 
             <Link
               to="/achievements"
               className={linkStyle}
               onClick={() => setIsOpen(false)}
-            >
-              Achievements
-            </Link>
+            >{t("nav.achievements")}</Link>
           </div>
         </div>
       </div>

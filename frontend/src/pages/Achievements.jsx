@@ -2,6 +2,7 @@
 // TO ADD A PHOTO: put the image in src/assets, add an import line like the ones below,
 // then copy one <img ... /> line in the grid and use your new variable name.
 import React from 'react'
+import { useLang } from "../i18n/LanguageContext";
 // One import per photo. Lines starting with // are photos that are currently hidden.
 import award1 from "../assets/awards1.jpeg";
 import award2 from "../assets/awards2.jpeg";
@@ -24,6 +25,8 @@ import { useEffect } from 'react';
 
 // Page component.
 export default function Achievements() {
+  // LANGUAGE: t("key") returns text in the chosen language (src/i18n/translations.js).
+  const { t } = useLang();
    // Scrolls to the top when the page opens.
    useEffect(() => {
       window.scrollTo({
@@ -48,11 +51,9 @@ return (
     tracking-tight
     hover:animate-zoomIn underline
   "
->
-  Our Achievements
-</p>
+>{t("home.achievements")}</p>
           <p className="text-xl text-gray-600 p-4 ">
-            We are proud of our accomplishments and milestones that reflect our commitment to excellence and customer satisfaction.
+            {t("ach.intro")}
           </p>
         </div>
         {/*
